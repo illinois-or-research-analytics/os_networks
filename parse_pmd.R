@@ -22,9 +22,14 @@ parse_pmd <- function(x) {
 		message("All done")
 	})
 }
+df_list <- list()
 setwd('/shared/pubmed_copy')
 file_list <- list.files(pattern="*.xml.gz")
 for (i in 1:100) {
-temp <- parse_pmd(file_list[i])
-fwrite(temp,file=paste0('/shared/pubmed/',file_list[i],'.csv'))
+df_list[[i]] <- parse_pmd(file_list[i])
+pmid_doi_df <- rbindlist(df_list)
+pmid_doi_df$pmid <- as.integer(pmid_doi_df$pmid)
+fwrite(pmid_doi_df,file='pmid_doi.csv')
 }
+
+
