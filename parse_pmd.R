@@ -27,17 +27,18 @@ df_list <- list()
 setwd('/shared/pubmed_copy')
 file_list <- list.files(pattern="*.xml.gz")
 
-for (i in 1:1000) {
+for (i in 1:length(file_list)) {
 df_list[[i]] <- parse_pmd(file_list[i])
 }
+
 print("Coalescing data frames and setting PMID to int")
 pmid_doi_df <- rbindlist(df_list)
 pmid_doi_df$pmid <- as.integer(pmid_doi_df$pmid)
 
 print("Exporting to csv and feather")
 setwd('/shared/pubmed')
-fwrite(pmid_doi_df1,file='pmid_doi.csv')
-write_feather(pmid_doi_df1,'pmid_doi.feather')
+fwrite(pmid_doi_df,file='pmid_doi.csv')
+write_feather(pmid_doi_df,'pmid_doi.feather')
 
 print("Done. Really!")
 
