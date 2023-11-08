@@ -2,6 +2,7 @@
 # uses the syntax from https://rsangole.netlify.app/post/try-catch/
 library(xml2)
 library(data.table)
+library(feather)
 
 parse_pmd <- function(x) {
 	tryCatch(expr = {
@@ -29,7 +30,9 @@ for (i in 1:100) {
 df_list[[i]] <- parse_pmd(file_list[i])
 pmid_doi_df <- rbindlist(df_list)
 pmid_doi_df$pmid <- as.integer(pmid_doi_df$pmid)
+setwd('/shared/pubmed')
 fwrite(pmid_doi_df,file='pmid_doi.csv')
+write_feather(pmid_doi_df,'pmid_doi.feather')
 }
 
 
