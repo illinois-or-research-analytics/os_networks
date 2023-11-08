@@ -28,7 +28,7 @@ setwd('/shared/pubmed_copy')
 file_list <- list.files(pattern="*.xml.gz")
 for (i in 1:1000) {
 df_list[[i]] <- parse_pmd(file_list[i])
-pmid_doi_df <- rbindlist(df_list)
+pmid_doi_df1 <- rbindlist(df_list)
 pmid_doi_df$pmid <- as.integer(pmid_doi_df$pmid)
 setwd('/shared/pubmed')
 fwrite(pmid_doi_df1,file='pmid_doi.csv')
