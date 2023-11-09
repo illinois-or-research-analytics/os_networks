@@ -23,13 +23,27 @@ parse_pmd <- function(x) {
 		message("All done")
 	})
 }
-df_list <- list()
+
 setwd('/shared/pubmed_copy')
 file_list <- list.files(pattern="*.xml.gz")
 
-for (i in 1:length(file_list)) {
-df_list[[i]] <- parse_pmd(file_list[i])
+df_list <- list()
+for (i in 1:25) {
+# for (i in 1:length(file_list)) {
+	df_list[[i]] <- parse_pmd(file_list[i])
 }
+
+# test for pmid NAs
+lapply(df_list,function(x)setDT(x))
+names(df_list) <- file_list[1:25]
+check_list <- lapply(df_list,function(x) x[is.na(pmid),.N])
+names(check_list) <- file_list[1:25]
+
+# There must be a better way but...
+z <- data.frame(as.list(unlist(check_list)))
+check_df <- data.frame(file=names(z),pmid_na_count=unname(unlist(z)))
+setDT(check_df)
+if ( nrow(check_df[pmid_na_count > 0]) > 0) {print("Detected NAs in pmid column")} else {print("No NAs detected")}
 
 print("Coalescing data frames and setting PMID to int")
 pmid_doi_df <- rbindlist(df_list)
@@ -39,6 +53,7 @@ print("Exporting to csv and feather")
 setwd('/shared/pubmed')
 fwrite(pmid_doi_df,file='pmid_doi.csv')
 write_feather(pmid_doi_df,'pmid_doi.feather')
+fwrite(check_df,file="check_pmid_NAs.csv")
 
 print("Done. Really!")
 

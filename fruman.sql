@@ -89,6 +89,7 @@ INNER JOIN pi3k_nl p2
 ON p2.iid=oc2e.cited_iid;
 
 -- CREATE EDGELIST for comparison using subquery
+DROP TABLE IF EXISTS pi3k_el2;
 CREATE TABLE pi3k_el2 AS
 SELECT citing_iid,cited_iid from open_citations_2023_edgelist oc2e
 WHERE citing_iid in (SELECT iid FROM pi3k_nl) AND
