@@ -28,8 +28,7 @@ setwd('/shared/pubmed_copy')
 file_list <- list.files(pattern="*.xml.gz")
 
 df_list <- list()
-for (i in length(file_list)) {
-# for (i in 1:length(file_list)) {
+for (i in 1:length(file_list)) {
 	df_list[[i]] <- parse_pmd(file_list[i])
 }
 
