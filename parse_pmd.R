@@ -3,6 +3,7 @@
 library(xml2)
 library(data.table)
 library(feather)
+library(arrow)
 
 parse_pmd <- function(x) {
 	tryCatch(expr = {
@@ -55,6 +56,7 @@ print("Exporting to csv and feather")
 setwd('/shared/pubmed')
 fwrite(pmid_doi_df,file='pmid_doi.csv')
 write_feather(pmid_doi_df,'pmid_doi.feather')
+write_parquet(pmid_doi_df,'pmid_doi_df.parquet')
 fwrite(check_df,file="check_pmid_NAs.csv")
 
 print("Done. Really!")
