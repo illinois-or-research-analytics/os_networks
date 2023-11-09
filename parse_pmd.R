@@ -30,6 +30,7 @@ file_list <- list.files(pattern="*.xml.gz")
 df_list <- list()
 for (i in 1:length(file_list)) {
 	df_list[[i]] <- parse_pmd(file_list[i])
+	print(i); print(file_list[i])
 }
 
 # test for pmid NAs
