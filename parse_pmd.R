@@ -28,16 +28,16 @@ setwd('/shared/pubmed_copy')
 file_list <- list.files(pattern="*.xml.gz")
 
 df_list <- list()
-for (i in 1:25) {
+for (i in length(file_list)) {
 # for (i in 1:length(file_list)) {
 	df_list[[i]] <- parse_pmd(file_list[i])
 }
 
 # test for pmid NAs
 lapply(df_list,function(x)setDT(x))
-names(df_list) <- file_list[1:25]
+names(df_list) <- file_list
 check_list <- lapply(df_list,function(x) x[is.na(pmid),.N])
-names(check_list) <- file_list[1:25]
+names(check_list) <- file_list
 
 # There must be a better way but...
 z <- data.frame(as.list(unlist(check_list)))
