@@ -97,3 +97,8 @@ cited_iid in (SELECT iid FROM pi3k_nl);
 
 SELECT COUNT(1) from pi3k_el; -- 427496813
 SELECT COUNT(1) FROM pi3k_el2 -- 427496813
+
+-- Create pmid-restricted network
+-- Load output of parse_pmd.R copied over from valhalla as a csv.
+
+

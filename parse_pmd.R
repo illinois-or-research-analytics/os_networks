@@ -48,6 +48,8 @@ if ( nrow(check_df[pmid_na_count > 0]) > 0) {print("Detected NAs in pmid column"
 print("Coalescing data frames and setting PMID to int")
 pmid_doi_df <- rbindlist(df_list)
 pmid_doi_df$pmid <- as.integer(pmid_doi_df$pmid)
+# remove duplicate rows
+pmid_doi_df <- unique(pmid_doi_df)
 
 print("Exporting to csv and feather")
 setwd('/shared/pubmed')
