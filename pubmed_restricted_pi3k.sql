@@ -1,10 +1,10 @@
-select count(1) from pi3k_nl;
+select count(1) from public.pi3k_nl;
 
 CREATE TABLE public.pi3k_pubmed_restricted_nl AS
-SELECT pn.iid,pdp.pmid,ocp.doi from pi3k_nl pn
-INNER JOIN open_citation_pubs ocp
+SELECT pn.iid,pdp.pmid,ocp.doi from public.pi3k_nl pn
+INNER JOIN public.open_citation_pubs ocp
 ON ocp.iid=pn.iid
-INNER JOIN pmid_doi_parsed pdp
+INNER JOIN public.pmid_doi_parsed pdp
 ON pdp.doi=ocp.doi;
 
 SELECT COUNT(1) FROM pi3k_pubmed_restricted_nl;
