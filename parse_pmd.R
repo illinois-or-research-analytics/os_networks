@@ -44,7 +44,11 @@ names(check_list) <- file_list
 z <- data.frame(as.list(unlist(check_list)))
 check_df <- data.frame(file=names(z),pmid_na_count=unname(unlist(z)))
 setDT(check_df)
-if ( nrow(check_df[pmid_na_count > 0]) > 0) {print("Detected NAs in pmid column")} else {print("No NAs detected")}
+if ( nrow(check_df[pmid_na_count > 0]) > 0) {
+    print("Detected NAs in pmid column")
+} else {
+    print("No NAs detected")
+}
 
 print("Coalescing data frames and setting PMID to int")
 pmid_doi_df <- rbindlist(df_list)

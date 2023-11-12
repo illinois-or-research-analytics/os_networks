@@ -5,23 +5,26 @@ library(xml2)
 library(data.table)
 my_xml <- xml2::read_xml("missing_pmids.xml")
 
+###### Initial approacj with find_all
 # find_all does not return NAs
 v1 <- xml_text(xml_find_all(my_xml, "./*/*/PMID"))
 v2 <- xml_text(xml_find_all(my_xml, "./*/*/*/ELocationID[@EIdType='doi']"))
 
 df <- data.frame(pmid = v1, doi = v2, stringsAsFactors = FALSE)
 print(df)
+######
 
-# alternate better version- find_first does
-parse_pmd <- function(xml_file) {
-	my_xml <- xml2::read_xml(xml_file)
-	v1 <- xml_text(xml_find_first(xml_children(my_xml), "./*//PMID"))
-	v2 <- xml_text(xml_find_first(xml_children(my_xml), "./*/*/ELocationID[@EIdType='doi']"))
-
-	df <- data.frame(pmid = v1, doi = v2, stringsAsFactors = FALSE)
-	return(df)
-}
-
+######
+# # alternate better version- find_first does
+# parse_pmd <- function(xml_file) {
+#	my_xml <- xml2::read_xml(xml_file)
+#	v1 <- xml_text(xml_find_first(xml_children(my_xml), "./*//PMID"))
+#	v2 <- xml_text(xml_find_first(xml_children(my_xml), "./*/*/ELocationID[@EIdType='doi']"))
+#
+#	df <- data.frame(pmid = v1, doi = v2, stringsAsFactors = FALSE)
+#	return(df)
+# }
+#######
 # even better, using the syntax from https://rsangole.netlify.app/post/try-catch/
 
 parse_pmd <- function(x) {
