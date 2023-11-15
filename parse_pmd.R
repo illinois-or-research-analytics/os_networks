@@ -8,9 +8,10 @@ library(arrow)
 parse_pmd <- function(x) {
 	tryCatch(expr = {
 		my_xml <- xml2::read_xml(x)
-		v1 <- xml_text(xml_find_first(xml_children(my_xml), "./*//PMID"))
+		v1 <- xml_text(xml_find_first(xml_children(my_xml), "./*/PMID"))
 		v2 <- xml_text(xml_find_first(xml_children(my_xml), "./*/*/ELocationID[@EIdType='doi']"))
-		df <- data.frame(pmid = v1, doi = v2, stringsAsFactors = FALSE)
+		v3 <- xml_text(xml_find_first(xml_children(my_xml), "./*/ArticleIdList/ArticleId[@IdType='doi']"))
+		df <- data.frame(pmid = v1, doi_eloc = v2, doi_articleid =v3, stringsAsFactors = FALSE)
 		return(df)
 
 	}, error = function(e) {
