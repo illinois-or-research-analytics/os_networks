@@ -1,6 +1,6 @@
 -- Thurs, Nov 2, 2023
 -- Use Fruman et al. (2017) 10.1016/j.cell.2017.07.029. as seed
--- Extract references from Scopus. Perform manual cleaning
+-- Extract references from Scopus. Perform manual cleaning to handle "" and NAs mostly.
 -- Load into chackoge.fruman_cleaned table.
 -- Import fruman_cleaned using DataGrip
 -- In DataGrip set primary key to eid /* Uncomment lower two lines for single execution */

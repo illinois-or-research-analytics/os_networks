@@ -1,5 +1,6 @@
 # parses a compressed Pubmed XML file and returns a two column data frame.
 # uses the syntax from https://rsangole.netlify.app/post/try-catch/
+
 library(xml2)
 library(data.table)
 library(feather)
