@@ -35,7 +35,7 @@ FROM open_citations_2023_edgelist oc2e
 INNER JOIN chackoge.fruman_cleaned fc
 ON oc2e.citing=fc.doi;
 
--- Stage 1 Seed refs
+-- Stage 1 Seed refs from fruman cleaned
 INSERT INTO public.pi3k_nl (iid)
 SELECT ocp.iid FROM open_citation_pubs ocp
 INNER JOIN fruman_cleaned fc
