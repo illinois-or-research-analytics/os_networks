@@ -80,7 +80,7 @@ SELECT COUNT(1) FROM pi3k_nl;
 DROP INDEX pi3k_nl_idx;
 ALTER TABLE pi3k_nl ADD PRIMARY KEY (iid);
 
--- CREATE EDGELIST
+-- CREATE EDGELIST where both endpoints are in pi3k_nl
 CREATE TABLE public.pi3k_el AS
 SELECT citing_iid,cited_iid from open_citations_2023_edgelist oc2e
 INNER JOIN pi3k_nl p1
