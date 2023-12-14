@@ -15,7 +15,8 @@ parse_pmd <- function(x) {
 		v4 <- xml_text(xml_find_first(xml_children(my_xml), "./*/DateRevised/Year"))
 		v5 <- xml_text(xml_find_first(xml_children(my_xml), "./*/DateRevised/Month"))
 		v6 <- xml_text(xml_find_first(xml_children(my_xml), "./*/DateRevised"))
-		df <- data.frame(pmid = v1, doi_eloc = v2, doi_articleid =v3, date_revised = v6, year_revised = v4, month_revised = v5, stringsAsFactors = FALSE)
+		v7 <- xml_text(xml_find_first(xml_children(my_xml), "./*/*/*/*/PubDate/Year"))
+		df <- data.frame(pmid = v1, doi_eloc = v2, doi_articleid =v3, date_revised = v6, year_revised = v4, month_revised = v5, pub_year = v7,stringsAsFactors = FALSE)
 		return(df)
 
 	}, error = function(e) {
