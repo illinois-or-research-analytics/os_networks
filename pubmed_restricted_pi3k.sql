@@ -31,5 +31,3 @@ TO '/tmp/pi3k_pubmed_restricted_el.csv' WITH(FORMAT CSV, HEADER);
 COPY (SELECT * FROM public.pi3k_pubmed_restricted_nl)
 TO '/tmp/public.pi3k_pubmed_restricted_nl.csv' WITH(FORMAT CSV, HEADER);
 
-SELECT '\\!';
-\! ls -al myDir;
