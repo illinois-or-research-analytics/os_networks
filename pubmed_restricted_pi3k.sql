@@ -5,13 +5,14 @@ select count(1) from public.pi3k_nl;
 -- join iid with dois from OC to dois in parsed pubmed data
 DROP TABLE IF EXISTS public.pi3k_pubmed_restricted_nl;
 CREATE TABLE public.pi3k_pubmed_restricted_nl AS
-SELECT pn.iid,pdp.pmid,ocp.doi FROM public.pi3k_nl pn
+SELECT pn.iid,pdc.pmid,ocp.doi FROM public.pi3k_nl pn
 INNER JOIN public.open_citation_pubs ocp
 ON ocp.iid=pn.iid
-INNER JOIN public.pmid_doi_parsed pdp
-ON pdp.doi_articleid=ocp.doi;
-
-SELECT COUNT(1) FROM pi3k_pubmed_restricted_nl;
+INNER JOIN public.pmid_doi_cleaned pdc
+ON pdc.doi_articleid=ocp.doi;
+CREATE INDEX pi3k_pubmed_restricted_nl_pmid_doi_index
+    ON pi3k_pubmed_restricted_nl (pmid, doi);
+SELECT COUNT(1) FROM pi3k_pubmed_restricted_nl; --11491369
 
 -- restrict edges to those with endpoints in pi3k_pubmed_restricted_nl
 DROP TABLE IF EXISTS public.pi3k_pubmed_restricted_el;
@@ -22,4 +23,13 @@ ON pe.citing_iid=pn1.iid
 INNER JOIN public.pi3k_pubmed_restricted_nl pn2
 ON pe.cited_iid=pn2.iid;
 
-SELECT COUNT(1) FROM public.pi3k_pubmed_restricted_el;
+SELECT COUNT(1) FROM public.pi3k_pubmed_restricted_el; --320577231
+
+COPY (SELECT * FROM public.pi3k_pubmed_restricted_el)
+TO '/tmp/pi3k_pubmed_restricted_el.csv' WITH(FORMAT CSV, HEADER);
+
+COPY (SELECT * FROM public.pi3k_pubmed_restricted_nl)
+TO '/tmp/public.pi3k_pubmed_restricted_nl.csv' WITH(FORMAT CSV, HEADER);
+
+SELECT '\\!';
+\! ls -al myDir;
