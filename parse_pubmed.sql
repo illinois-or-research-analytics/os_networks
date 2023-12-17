@@ -2,7 +2,21 @@
 -- load pmid_doi.csv into the public.pmid_doi_parsed table
 
 -- Dec 12, 2023 loaded new data that includes revised date field. This is treated as an integer.
--- remove null PMID rows
+
+
+-- Table "public.pmid_doi_parsed"
+--     Column     |  Type   | Collation | Nullable | Default
+-- ---------------+---------+-----------+----------+---------
+--  pmid          | integer |           |          |
+--  doi_eloc      | text    |           |          |
+--  doi_articleid | text    |           |          |
+--  date_revised  | integer |           |          |
+--  year_revised  | integer |           |          |
+--  month_revised | integer |           |          |
+--  pub_year      | integer |           |          |
+-- Indexes:
+--     "pmid_doi_parsed_idx" btree (pmid, doi_articleid)
+
 TRUNCATE public.pmid_doi_parsed;
 COPY public.pmid_doi_parsed FROM '/data1/chackoge/pmid_doi.csv' WITH(FORMAT CSV, HEADER);
 SELECT COUNT(1) from public.pmid_doi_parsed; --34960645
